@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>VUI.JS</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/bcvlogo.png")">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+    <script src="vui-js.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<style>
+    div {
+    height: 3em; width: 4em; margin: 1em;
+    }
+</style>
+<div class="onload-apply bg-primary" data-effect="fade">
+Fade
+</div>
+<div class="onload-apply bg-dark text-light" data-time="500" data-direction="left" data-effect="slide">
+Slide
+</div>
+<div class="onload-apply bg-danger" data-time="3000" data-direction="right" data-effect="blind">
+Blind
+</div>
+<div class="onload-apply bg-success" data-time="3000" data-direction="left" data-effect="drop">
+Drop
+</div>
+<div class="onclick-apply bg-success" data-time="3000" data-direction="left" data-effect="drop">
+on click Drop
+</div>
+<div class="onload-apply bg-secondary ok" data-direction="horizontal" data-effect="clip">
+Clip
+</div>
+<div class="onclick-apply bg-secondary ok" data-direction="horizontal" data-effect="clip">
+on click Clip
+</div>
+<div class="datadrop-apply bg-secondary" data-target=".ok">
+on click Clip
+</div>
+<div class="show" data-timeout="3000">
+<p class="actor curactor  bg-info" data-effect="slide">actor1</p>
+<p class="actor bg-success" data-effect="blind">actor2</p>
+<p class="actor bg-danger">actor3</p>
+<button type="button" class="skip-actor-next">next</button>
+<button type="button" class="skip-actor-prev">prev</button>
+</div>
+</body>
+</html>
