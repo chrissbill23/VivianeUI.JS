@@ -14,56 +14,54 @@
 </head>
 <body>
 <style>
-    div:not(.container) {
-    height: 3em; width: 5em; margin: 1em;
-    }
-    .actor {
-    position: absolute;
-    left: 33em;
-    top: 0;
-    }
+div:not(.row) {
+    height: 6em;
+    margin-bottom: 2em;
+}
+div.row {
+    width: 80%;
+    margin: auto;
+}
 </style>
-    <div class="container">
-        <h1>Onload effect<h1>
-        <div class="onload-apply bg-primary" data-effect="fade">
+    <div class="row">
+        <h1 class="col-sm-12">Onload effect</h1>
+        <div class="onload-apply bg-primary col-sm-4 offset-sm-8" data-time="1000" data-effect="fade">
             Fade
         </div>
-        <div class="onload-apply bg-dark text-light" data-time="500" data-direction="left" data-effect="slide">
+        <div class="onload-apply bg-dark text-light col-sm-6 offset-sm-6" data-time="500" data-direction="left" data-effect="slide">
             Slide
         </div>
-        <div class="onload-apply bg-danger" data-time="3000" data-direction="right" data-effect="blind">
+        <div class="onload-apply bg-danger col-sm-8 offset-sm-4" data-time="3000" data-direction="right" data-effect="blind">
             Blind
         </div>
-        <div class="onload-apply bg-success" data-time="3000" data-direction="left" data-effect="drop">
+        <div class="onload-apply bg-success col-sm-10 offset-sm-2" data-time="3000" data-direction="left" data-effect="drop">
             Drop
         </div>
     </div>
 
-    <div class="container">
-        <h1>Onlclick effect<h1>
-        <div class="onclick-apply bg-success" data-time="3000" data-direction="left" data-effect="drop">
+    <div class="row">
+        <h1 class="col-sm-12">Onlclick effect</h1>
+        <div class="onclick-apply bg-success col-sm-4 offset-sm-4" data-time="3000" data-direction="left" data-effect="drop">
             on click hide Drop
         </div>
 
-        <div class="bg-secondary ok" data-direction="horizontal" data-effect="clip">
+        <div class="bg-secondary ok col-sm-4 offset-sm-4" data-direction="horizontal" data-effect="clip">
             element1
         </div>
-        <div class="bg-info ok" data-time="600" data-effect="fade">
+        <div class="bg-info ok col-sm-4 offset-sm-4" data-time="600" data-effect="fade">
             element2
         </div>
-        <button class="datadrop-apply btn btn-primary" data-target=".ok">
+        <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target=".ok">
             on click hide/show element1 and element2
         </button>
     </div>
-    <div class="container">
-        <h1>Show effect</h1>
-        <div class="show container" data-timeout="4000" style="position: relative; height: 150px;">
-            <div class="actor curactor bg-info" data-effect="slide">actor1</div>
-            <div class="actor bg-success" data-effect="blind">actor2</div>
-            <div class="actor bg-danger">actor3</div>
-            <button type="button" class="skip-actor-next  btn btn-primary" style="position: absolute; right: 20em; top: 1.7em;">next</button>
-            <button type="button" class="skip-actor-prev  btn btn-primary" style="position: absolute; left: 20em; top: 1.7em;">prev</button>
-        </div>
+    <div class="row show" data-timeout="4000" style="position: relative; height: 150px;">
+        <h1 class="col-sm-12">Show effect</h1>
+            <div class="actor curactor bg-info col-sm-4 offset-sm-4 text-center" data-effect="slide">actor1</div>
+            <div class="actor bg-success col-sm-4 offset-sm-4 text-center" data-effect="blind">actor2</div>
+            <div class="actor bg-danger col-sm-4 offset-sm-4 text-center">actor3</div>
+            <button type="button" class="skip-actor-prev btn btn-primary" style="position: absolute; top: 70%; left:0;">prev</button>
+            <button type="button" class="skip-actor-next btn btn-primary" style="position: absolute; top: 70%; right:0;">next</button>
     </div>
 </body>
 </html>
