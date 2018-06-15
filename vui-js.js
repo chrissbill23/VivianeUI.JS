@@ -10,8 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
     $('.show .actor').hide();
-    eventEffect($('.show .curactor'));
-    setShows($('.show'));
+    setShows($('.show .curactor'));
+    $('.show .skip-actor-next').on('click', function(){
+        var par = $(this).parent();
+        clearTimeout(parseInt($(par).attr('data-curId')));
+        timeout($(par).find('.curactor'));
+    });
+    $('.show .skip-actor-prev').on('click', function(){
+        clearTimeout(parseInt($(this).parent().attr('data-curId')));
+        timeout($(par).find('.curactor'), false);
+    });
 });
 
 function eventEffect(el, oncomplete) {  
@@ -45,38 +53,25 @@ function giveOptions(el) {
     }
     return option;
 } 
+/*******SHOW**********/
 function timeout(el, next) {
-    var curel = $(el).find('.curactor');
-    var newCur = next === false ? $(curel).prev('.actor') : $(curel).next('.actor');
+    var newCur = next === false ? $(el).prev('.actor').first() : $(el).next('.actor').first();
     if(newCur.length <= 0) {
-        newCur = next === false ? $(el).children('.actor').last() : $(el).children('.actor').first();
+        newCur = next === false ? $(el).parent().children('.actor').last() : $(el).parent().children('.actor').first();
     }
-    curel.removeClass('curactor');
-        eventEffect(curel, function() {
+    el.removeClass('curactor');
+     eventEffect(el, function() {
         newCur.addClass('curactor');
-        eventEffect(newCur);
-        });
+        setShows(newCur);
+     });
 }
 function setShows(el) {
-    $(el).each(function(){      
-    var time = parseInt($(this).attr('data-timeout')) || -1;
-    if(time > 0) {
-        var e = $(this);
-        var i = setInterval(function() {
-            timeout(e);
-        }, time);
-    $(e).find('.skip-actor-next').on('click', function(){
-       clearInterval(i);
-       timeout(e);
-       setShows(e);
-    });
-    $(e).find('.skip-actor-prev').on('click', function(){
-       clearInterval(i);
-       timeout(e, false);
-       setShows(e);
-    });
-    }
-    });
+        var duration = parseInt($(el).attr('data-stageduration')) || 5000;
+        eventEffect(el);
+        var code = setTimeout(function() {
+            timeout(el);
+        }, duration);
+        $(el).parent().attr('data-curId', code);
 }
 /*------------------------------------ ROTATE --------------------------------*/
 function rotate(el) {
