@@ -17,7 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
         timeout($(par).find('.curactor'));
     });
     $('.show .skip-actor-prev').on('click', function(){
-        clearTimeout(parseInt($(this).parent().attr('data-curId')));
+        var par = $(this).parent();
+        clearTimeout(parseInt($(par).attr('data-curId')));
         timeout($(par).find('.curactor'), false);
     });
 });
