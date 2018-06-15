@@ -37,6 +37,14 @@ div.row {
         <div class="onload-apply bg-success col-sm-10 offset-sm-2" data-time="3000" data-direction="left" data-effect="drop">
             Drop
         </div>
+        <div class="col-sm-12" style="position: relative">
+            <span class="onload-apply"  data-time="4000" data-effect="rotate" data-angle="90" style="position: absolute;">
+            <i class="fas fa-arrow-alt-circle-right text-info" style="font-size: 3em;"></i>
+            </span>
+            <span style="position: absolute; left: 5em;">
+             Rotate
+            </span>
+        </div>
     </div>
 
     <div class="row">
@@ -52,10 +60,48 @@ div.row {
             element2
         </div>
         <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target=".ok">
-            on click hide/show element1 and element2
+            on click hide/show
+        </button>
+        
+        
+            <i class="fas fa-arrow-alt-circle-right text-info col-sm-2 offset-sm-4" 
+            id="rotate" data-time="2000" data-effect="rotate" data-angle="90" style="font-size: 4em; border-right: 2px solid; 
+            margin-bottom: 2em; margin-top: 2em;"></i>
+            
+        <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target="#rotate">
+            Rotate back and forth
+        </button>
+            <i class="fas fa-arrow-alt-circle-right text-danger col-sm-2 offset-sm-4" 
+            id="rotate2" data-time="2000" data-effect="rotate" data-direction="forth" data-angle="90" 
+            style="font-size: 4em; border-right: 2px solid; margin-bottom: 2em; margin-top: 2em;"></i>
+            
+        <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target="#rotate2">
+            Rotate forth
+        </button>
+            <i class="fas fa-arrow-alt-circle-right text-secondary col-sm-2 offset-sm-4" 
+            id="rotate3" data-time="2000" data-effect="rotate" data-direction="back" data-angle="90" 
+            style="font-size: 4em; border-right: 2px solid; margin-bottom: 2em; margin-top: 2em;"></i>
+            
+        <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target="#rotate3">
+            Rotate back
+        </button>
+          
+    
+    <div class="col-sm-12">
+            <i class="fas fa-arrow-alt-circle-right text-info col-sm-3 offset-sm-3 rotate" data-time="2000" data-effect="rotate" data-angle="90" style="font-size: 4em; border-right: 2px solid; 
+            margin-bottom: 1em; margin-top: 1em;"></i>
+            <i class="fas fa-arrow-alt-circle-right text-danger col-sm-3 offset-sm-1 rotate" data-time="2000" data-effect="rotate" data-direction="forth" data-angle="90" 
+            style="font-size: 4em; border-right: 2px solid; margin-bottom: 1em; margin-top: 1em;"></i>
+            <i class="fas fa-arrow-alt-circle-right text-secondary col-sm-3 offset-sm-1 rotate" 
+            data-time="2000" data-effect="rotate" data-direction="back" data-angle="90" 
+            style="font-size: 4em; border-right: 2px solid; margin-bottom: 1em; margin-top: 1em;"></i>
+            
+        <button class="datadrop-apply btn btn-primary col-sm-4 offset-sm-4" data-target=".rotate">
+            Rotate all
         </button>
     </div>
-    <div class="row show" data-timeout="4000" style="position: relative; height: 150px;">
+    </div>
+    <div class="row show" data-timeout="4000" style="position: relative; height: 150px; margin: 9em auto;">
         <h1 class="col-sm-12">Show effect</h1>
             <div class="actor curactor bg-info col-sm-4 offset-sm-4 text-center" data-effect="slide">actor1</div>
             <div class="actor bg-success col-sm-4 offset-sm-4 text-center" data-effect="blind">actor2</div>
