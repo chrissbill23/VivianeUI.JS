@@ -10,16 +10,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
     $('.show .actor').hide();
-    setShows($('.show .curactor'));
-    $('.show .skip-actor-next').on('click', function(){
-        var par = $(this).parent();
-        clearTimeout(parseInt($(par).attr('data-curId')));
-        timeout($(par).find('.curactor'));
-    });
-    $('.show .skip-actor-prev').on('click', function(){
-        var par = $(this).parent();
-        clearTimeout(parseInt($(par).attr('data-curId')));
-        timeout($(par).find('.curactor'), false);
+    $('.show').each(function () {
+        setShows($(this).find('.curactor'));
+        $(this).find('.skip-actor-next').on('click', function(){
+          clearTimeout(parseInt($(this).attr('data-curId')));
+          timeout($(this).find('.curactor'));
+        });
+        $(this).find('.skip-actor-prev').on('click', function(){
+          clearTimeout(parseInt($(this).attr('data-curId')));
+          timeout($(this).find('.curactor'), false);
+        });
     });
 });
 
