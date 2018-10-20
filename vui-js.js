@@ -1,32 +1,83 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var onloadslide = $('.onload-apply').hide();
-    eventEffect($(onloadslide));
-    $('.onclick-apply').on('click', function() {eventEffect($(this));});
-    $('.datadrop-apply').on('click', function() {
-        var target = $(this).attr('data-target');
-        if(target != undefined) {
-            eventEffect(target);
-        }
-        });
-    
-    $('.show .actor').hide();
-    $('.show').each(function () {
-        setShows($(this).find('.curactor'));
-        $(this).find('.skip-actor-next').on('click', function(){
-          clearTimeout(parseInt($(this).attr('data-curId')));
-          timeout($(this).find('.curactor'));
-        });
-        $(this).find('.skip-actor-prev').on('click', function(){
-          clearTimeout(parseInt($(this).attr('data-curId')));
-          timeout($(this).find('.curactor'), false);
-        });
-    });
+  loadEffects($('body'));
+  loadAsync();
 });
+var listeners = {
+  show: '.show-spectator'
+}
+var eventsNames = {
+  showStarted: 'ShowStarted',
+  actorOnStage: 'ActorOnStage'
+};
+function sendEvents(sender, targets, event, async = true) {
+  var time = async ? 400 : 0;
+  setTimeout(function () {
+    var evt = new CustomEvent(event, {
+      detail: {
+        index: $(sender).index()
+      }
+    });
+    document.querySelectorAll(targets).forEach(function (value, key) {
+      value.dispatchEvent(evt);
+    });
+  }, time);
+}
+function loadEffects(element) {
+  if(element === undefined || element === null) {
+    throw new Error('Element requested');
+  }
+  element = $(element).find('*').addBack();
+  var onloadslide = $(element).filter('.onload-apply').hide();
+  eventEffect($(onloadslide));
+  $(element).filter('.onclick-apply').on('click', function() {eventEffect($(this));});
+  $(element).filter('.onmouseover-apply').on('mouseover', function() {eventEffect($(this));});
+  $(element).filter('.datadrop-apply').on('click', function() {
+    var target = $(this).attr('data-target');
+    if(target != undefined) {
+      eventEffect(target);
+    }
+  });
 
-function eventEffect(el, oncomplete) {  
+  $(element).filter('.show .actor').hide();
+  $(element).filter('.show').each(function () {
+    $(this).addClass('effects-loaded');
+    var id = $(this).attr('id');
+    var lst = `${listeners.show}[data-show='#${id}']`;
+    setShows($(this).find('.curactor'), lst);
+    sendEvents($(this), `${listeners.show}[data-show='#${id}']`, eventsNames.showStarted)
+    var parent = $(this);
+    $(this).find('.skip-actor-next').on('click', function(){
+      clearTimeout(parseInt($(parent).attr('data-curId')));
+      timeout($(parent).find('.curactor'), lst);
+    });
+    $(this).find('.skip-actor-prev').on('click', function(){
+      clearTimeout(parseInt($(parent).attr('data-curId')));
+      timeout($(parent).find('.curactor'),lst, false);
+    });
+    $(this).find('.skip-index').on('click', function(){
+      clearTimeout(parseInt($(parent).attr('data-curId')));
+      var subject = $(this).attr('data-obs');
+      timeout($(parent).find('.curactor'),lst, false, subject);
+    });
+  });
+}
+function loadAsync() {
+  var checkAndSet = function () {
+    var els = $('.async-apply').not('.async-loaded').not('.effects-loaded');
+    if(els.length > 0) {
+      loadEffects(els);
+      els.addClass('async-loaded');
+    }
+  }
+  var id = setInterval(checkAndSet, 100);
+  var id2 = setTimeout(function(){
+    clearInterval(id);
+  }, 10000);
+}
+function eventEffect(el, oncomplete) {
     $(el).each(function() {
         var effect = $(this).attr('data-effect');
-        if(effect === "rotate"){
+        if(effect === 'rotate'){
             rotate($(this));
         }
         else {
@@ -55,24 +106,30 @@ function giveOptions(el) {
     return option;
 } 
 /*******SHOW**********/
-function timeout(el, next) {
-    var newCur = next === false ? $(el).prev('.actor').first() : $(el).next('.actor').first();
-    if(newCur.length <= 0) {
+function timeout(el,lst, next, index) {
+    var newCur;
+    if(index === undefined) {
+      newCur = next === false ? $(el).prev('.actor').first() : $(el).next('.actor').first();
+      if(newCur.length <= 0) {
         newCur = next === false ? $(el).parent().children('.actor').last() : $(el).parent().children('.actor').first();
+      }
+    } else {
+      newCur = $(el).parent().children(`.actor:eq(${index})`);
     }
     el.removeClass('curactor');
      eventEffect(el, function() {
         newCur.addClass('curactor');
-        setShows(newCur);
+        setShows(newCur, lst);
      });
 }
-function setShows(el) {
+function setShows(el, lst) {
         var duration = parseInt($(el).attr('data-stageduration')) || 5000;
         eventEffect(el);
         var code = setTimeout(function() {
-            timeout(el);
+            timeout(el, lst);
+            sendEvents(el, lst, eventsNames.actorOnStage, false);
         }, duration);
-        $(el).parent().attr('data-curId', code);
+        $(el).parent('.show').attr('data-curId', code);
 }
 /*------------------------------------ ROTATE --------------------------------*/
 function rotate(el) {
@@ -83,7 +140,6 @@ function rotate(el) {
         $(el).attr('data-realangle', opt.angle);
         opt.realAngle = opt.angle;
     }
-    var classVal = $(el).hasClass('onload-apply');
     if($(el).hasClass('onload-apply')) {
         
     if($(el).is(':visible')) {
@@ -93,10 +149,10 @@ function rotate(el) {
         }
         
     }
-    if(opt.direction === "forth") {
+    if(opt.direction === 'forth') {
         directionedRotate(el, opt);
     } else {
-        if(opt.direction === "back") { 
+        if(opt.direction === 'back') {
             opt.realAngle = -1 * opt.realAngle;
             if(opt.angle > 0) {
                 opt.angle = opt.angle * -1;
